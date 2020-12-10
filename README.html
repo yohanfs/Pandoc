@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pandoc</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="github-pandoc.css" />
+    <meta content="Yohan Sidik" name="Penulis" />
+</head>
+<body>
+    <section id="pandoc">
+        <h1>Pandoc</h1>
+        <aside id="daftar-isi" class="topic contents">
+            <h1><strong>Daftar Isi</strong></h1>
+            <ul>
+                <li><a href="#install-pandoc">Install Pandoc</a></li>
+                <li><a href="#markdown-ke-pdf">Markdown ke PDF</a></li>
+                <li><a href="#markdown-ke-html">Markdown ke HTML</a></li>
+            </ul>
+        </aside>
+        <section id="install-pandoc">
+            <h2>Install Pandoc</h2>
+            <p><a href="https://pandoc.org/installing.html">Installing pandoc</a></p>
+        </section>
+        <section id="markdown-ke-pdf">
+            <h2>Markdown ke PDF</h2>
+            <ul>
+                <li>Simple setting</li>
+            </ul>
+            <pre>pandoc -o file.pdf file.md</pre>
+            <ul>
+                <li>Xelatex</li>
+            </ul>
+            <pre>pandoc --pdf-engine=xelatex -o file.pdf file.md</pre>
+            <ul>
+                <li>Ukuran page</li>
+            </ul>
+            <pre>pandoc --pdf-engine=xelatex --variable geometry=a4paper -o file.pdf file.md</pre>
+            <ul>
+                <li>Margin</li>
+            </ul>
+            <pre>pandoc --pdf-engine=xelatex --variable geometry:"top=2cm, bottom=2cm, left=2cm, right=2cm" --variable geometry=a4paper -o file.pdf file.md</pre>
+            <p><strong>Makefile</strong></p>
+            <p>Untuk memudahkan mengkonversi banyak file sekaligus, bisa menggunakan makefile sebagai berikut:</p>
+            <pre>SOURCE := $(wildcard *.md) $(wildcard */*.md)
+
+EXPORTED = $(SOURCE:.md=.pdf)
+
+all: $(EXPORTED)
+
+%.pdf: %.md
+    pandoc --pdf-engine=xelatex \
+    --variable geometry:"top=3cm, bottom=3cm, left=3cm, right=3cm" \
+    --variable geometry:a4paper \
+    -o $@ $&lt;</pre>
+        </section>
+        <section id="markdown-ke-html">
+            <h2>Markdown ke HTML</h2>
+            <p><strong>Simpan Template</strong></p>
+            <ul>
+                <li>buat folder di</li>
+            </ul>
+            <pre>$ mkdir -p ~/.pandoc/templates/html</pre>
+            <ul>
+                <li>simpan template di folder html</li>
+            </ul>
+            <p>Contoh template:</p>
+            <ul>
+                <li><a href="https://github.com/ryangrose/easy-pandoc-templates">easy pandoc templates</a></li>
+            </ul>
+            <p><strong>Default</strong></p>
+            <pre>$ pandoc source.md -o destination.html</pre>
+            <p><strong>With CSS</strong></p>
+            <p>pandoc.css berada dalam folder yang sama dengan source.md.</p>
+            <pre>$ pandoc -s -c pandoc.css source.md -o destination.html</pre>
+            <p><strong>Install CSS Template</strong></p>
+            <p>Tanpa toc:</p>
+            <pre>$ pandoc source.md -o destination.html --template=template_name.html</pre>
+            <p>Dengan toc:</p>
+            <pre>$ pandoc --toc source.md -o destination.html --template=template_name.html</pre>
+            <p>Agar bisa dijalankan secara offline:</p>
+            <pre>$ pandoc -s --toc source.md -o destination.html --template=template_name.html</pre>
+            <!-- Referensi -->
+        </section>
+    </section>
+</body>
+</html>

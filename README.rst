@@ -5,7 +5,12 @@ Pandoc
 
 .. contents:: **Daftar Isi**
 
-Konversi dari Markdown ke PDF
+Install Pandoc
+---------------------------------------------------------------------------------
+
+`Installing pandoc`_
+
+Markdown ke PDF
 ---------------------------------------------------------------------------------
 
 - Simple setting
@@ -53,4 +58,61 @@ Untuk memudahkan mengkonversi banyak file sekaligus, bisa menggunakan makefile s
         	--variable geometry:"top=3cm, bottom=3cm, left=3cm, right=3cm" \
         	--variable geometry:a4paper \
         	-o $@ $<
-        
+
+Markdown ke HTML
+---------------------------------------------------------------------------------
+     
+**Simpan Template**
+
+- buat folder di
+
+::
+
+	$ mkdir -p ~/.pandoc/templates/html
+
+- simpan template di folder html
+
+Contoh template:
+
+- `easy pandoc templates`_
+
+ 
+**Default**
+
+::
+
+	$ pandoc source.md -o destination.html 
+
+**With CSS**
+
+pandoc.css berada dalam folder yang sama dengan source.md. 
+
+::
+
+	$ pandoc -s -c pandoc.css source.md -o destination.html
+
+**Install CSS Template**
+
+Tanpa toc:
+
+::
+
+	$ pandoc source.md -o destination.html --template=template_name.html
+
+Dengan toc:
+
+::
+
+	$ pandoc --toc source.md -o destination.html --template=template_name.html
+
+Agar bisa dijalankan secara offline:
+
+::
+
+	$ pandoc -s --toc source.md -o destination.html --template=template_name.html
+
+ 
+.. Referensi
+ 
+.. _`Installing pandoc`: https://pandoc.org/installing.html 
+.. _`easy pandoc templates`: https://github.com/ryangrose/easy-pandoc-templates
